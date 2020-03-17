@@ -9,10 +9,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 'Step One'
-        env:
-          FOO: bar
-        run: |
-          echo "Step One. Foo is $FOO."
+        uses: actions/hello_world@master
+        with:
+          first_name: Todd
       - name: 'Gradle Assemble'
       - uses: actions/checkout@v1
       - uses: actions/setup-java@v1
