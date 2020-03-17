@@ -28,11 +28,8 @@ jobs:
         with:
           arguments: assemble
 
-      - name: 'Create Artifact Directory'
-        run: mkdir -p path/to/artifact
-
       - name: 'Publish Artifact'
         uses: actions/upload-artifact@v1
         with:
-          name: github-actions-micronaut-demo.jar
-          path: path/to/artifact
+          name: '*-all.jar'
+          path: build/libs
