@@ -30,6 +30,6 @@ jobs:
 
       - name 'Publish'
         uses: actions/upload-artifact@v1
-          with:
-            name: github-actions-micronaut-demo.jar
-            path: path/to/artifact
+        with:
+          name: github-actions-micronaut-demo.jar
+          path: path/to/artifact
