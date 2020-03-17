@@ -1,0 +1,15 @@
+name: micronaut-ci-demo
+on:
+  push:
+    branches:
+      - master
+jobs:
+  demo-job:
+    name: Demo Job
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Step One'
+        env:
+          FOO: bar
+        run: |
+          echo "Step One. Foo is $FOO."
