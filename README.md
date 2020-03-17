@@ -1,3 +1,3 @@
 # github-actions-micronaut-demo
 
-![](https://github.com/actions/hello-world/workflows/Demo%20Job/badge.svg)
+![](https://github.com/actions/recursivecodes/github-actions-micronaut-demo/workflows/Demo%20Job/badge.svg)
