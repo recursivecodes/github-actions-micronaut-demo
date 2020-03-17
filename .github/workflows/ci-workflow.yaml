@@ -27,9 +27,10 @@ jobs:
         uses: eskatos/gradle-command-action@v1
         with:
           arguments: assemble
-
+        run: |
+          echo "::set-env name=VERSION::$(properties -q | grep "version:" | awk '{print $2}')"
       - name: 'Publish Artifact'
         uses: actions/upload-artifact@v2-preview
         with:
-          name: 'github-actions-micronaut-demo-all.jar'
+          name: 'github-actions-micronaut-demo-${{VERSION}}-all.jar'
           path: build/libs/*-all.jar
