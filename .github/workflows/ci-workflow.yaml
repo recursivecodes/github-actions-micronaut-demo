@@ -27,6 +27,7 @@ jobs:
         uses: eskatos/gradle-command-action@v1
         with:
           arguments: assemble
+      - name: 'Store Version Number'
         run: |
           echo "::set-env name=VERSION::$(properties -q | grep "version:" | awk '{print $2}')"
       - name: 'Publish Artifact'
