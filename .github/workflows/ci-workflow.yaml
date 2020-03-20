@@ -8,12 +8,11 @@ jobs:
     name: Demo Job
     runs-on: ubuntu-latest
     steps:
-
-      - name: 'Step One'
+      - name: 'Start build'
         env:
           FOO: bar
         run: |
-          echo "Step One. Foo is $FOO."
+          echo "Starting the build. Foo is $FOO."
 
       - name: 'Checkout'
         uses: actions/checkout@v1
@@ -24,13 +23,12 @@ jobs:
           java-version: 11
 
       - name: 'Assemble JAR'
-        uses: eskatos/gradle-command-action@v1
-        with:
-          arguments: assemble
+        run: |
+          ./gradlew assemble
 
       - name: 'Store Version Number'
         run: |
-          echo "::set-env name=VERSION::$(gradle properties -q | grep "version:" | awk '{print $2}')"
+          echo "::set-env name=VERSION::$(./gradlew properties -q | grep "version:" | awk '{print $2}')"
 
       - name: 'Publish Artifact'
         uses: actions/upload-artifact@v2-preview
