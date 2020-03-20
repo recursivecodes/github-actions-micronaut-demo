@@ -40,6 +40,7 @@ jobs:
           name: 'github-actions-micronaut-demo-${{env.VERSION}}-all.jar'
           path: build/libs/*-all.jar
   publish-job:
+    needs: build-job
     name: Publish Artifacts Job
     runs-on: ubuntu-latest
     steps:
