@@ -21,8 +21,6 @@ public class HelloControllerTest {
 
     @Test
     public void testIndex() throws Exception {
-        InetAddress host = InetAddress.getLocalHost();
-
         try(RxHttpClient client = embeddedServer.getApplicationContext().createBean(RxHttpClient.class, embeddedServer.getURL())) {
             Map response = client.toBlocking().retrieve(HttpRequest.GET("/hello"), Map.class);
             assertEquals(response.get("foo"), "bar");
