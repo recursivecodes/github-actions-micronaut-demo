@@ -33,9 +33,9 @@ jobs:
       - name: 'Publish Test Report'
         if: always()
         uses: actions/upload-artifact@v2-preview
-          with:
-            name: 'test-report'
-            path: build/reports/tests/test/*
+        with:
+          name: 'test-report'
+          path: build/reports/tests/test/*
 
       - name: 'Store Version Number'
         run: |
