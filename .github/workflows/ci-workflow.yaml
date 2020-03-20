@@ -26,6 +26,10 @@ jobs:
         run: |
           ./gradlew assemble
 
+      - name: 'Run Tests'
+        run: |
+          ./gradlew test
+
       - name: 'Store Version Number'
         run: |
           echo "::set-env name=VERSION::$(./gradlew properties -q | grep "version:" | awk '{print $2}')"
