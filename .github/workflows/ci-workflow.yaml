@@ -32,7 +32,9 @@ jobs:
 
       - name: 'List Instances'
         run: |
-          ./gradlew listInstances
+          ./gradlew listInstances \
+              --availability-domain odti:PHX-AD-1 \
+              --compartment-id ocid1.compartment.oc1..aaaaaaaa7lzppsdxt6j56zhpvy6u5gyrenwyc2e2h4fak5ydvv6kt7anizbq
 
       - name: 'Setup Java'
         uses: actions/setup-java@v1
