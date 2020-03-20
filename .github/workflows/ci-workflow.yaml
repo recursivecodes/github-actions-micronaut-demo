@@ -30,6 +30,13 @@ jobs:
         run: |
           ./gradlew test
 
+      - name: 'Publish Test Report'
+        if: always()
+        uses: actions/upload-artifact@v2-preview
+          with:
+            name: 'test-report'
+            path: build/reports/tests/test/*
+
       - name: 'Store Version Number'
         run: |
           echo "::set-env name=VERSION::$(./gradlew properties -q | grep "version:" | awk '{print $2}')"
@@ -39,13 +46,3 @@ jobs:
         with:
           name: 'github-actions-micronaut-demo-${{env.VERSION}}-all.jar'
           path: build/libs/*-all.jar
-  publish-job:
-    needs: build-job
-    name: Publish Artifacts Job
-    runs-on: ubuntu-latest
-    steps:
-      - name: 'Start publish job'
-        env:
-          FOO: bar
-        run: |
-          echo "Starting the publish job. Foo is $FOO."
