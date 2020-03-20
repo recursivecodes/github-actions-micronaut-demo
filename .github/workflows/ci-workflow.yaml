@@ -17,6 +17,16 @@ jobs:
       - name: 'Checkout'
         uses: actions/checkout@v1
 
+      - name: 'Write OCI Config File'
+        run: |
+          mkdir ~/.oci
+          echo "[DEFAULT]" >> ~/.oci/config
+          echo "user=${{secrets.OCI_USER_OCID}}" >> ~/.oci/config
+          echo "fingerprint=${{secrets.OCI_FINGERPRINT}}" >> ~/.oci/config
+          echo "passphrase=${{secrets.OCI_PASSPHRASE}}" >> ~/.oci/config
+          echo "region=${{secrets.OCI_REGION}}" >> ~/.oci/config
+          echo "tenancy=${{secrets.OCI_TENANCY_OCID}}" >> ~/.oci/config
+          more ~/.oci/config
       - name: 'Setup Java'
         uses: actions/setup-java@v1
         with:
@@ -46,14 +56,3 @@ jobs:
         with:
           name: 'github-actions-micronaut-demo-${{env.VERSION}}-all.jar'
           path: build/libs/*-all.jar
-
-      - name: 'Write OCI Config File'
-        run: |
-          mkdir ~/.oci
-          echo "[DEFAULT]" >> ~/.oci/config
-          echo "user=${{secrets.OCI_USER_OCID}}" >> ~/.oci/config
-          echo "fingerprint=${{secrets.OCI_FINGERPRINT}}" >> ~/.oci/config
-          echo "passphrase=${{secrets.OCI_PASSPHRASE}}" >> ~/.oci/config
-          echo "region=${{secrets.OCI_REGION}}" >> ~/.oci/config
-          echo "tenancy=${{secrets.OCI_TENANCY_OCID}}" >> ~/.oci/config
-          more ~/.oci/config
