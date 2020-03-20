@@ -27,8 +27,10 @@ public class HelloControllerTest {
         }
     }
 
+    /*
     @Test
     public void testIntentionallyFail() {
         assertTrue(false);
     }
+    */
 }

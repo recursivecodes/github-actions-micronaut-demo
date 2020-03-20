@@ -28,8 +28,9 @@ jobs:
           echo "tenancy=${{secrets.OCI_TENANCY_OCID}}" >> ~/.oci/config
           echo "key_file=~/.oci/key.pem" >> ~/.oci/config
           echo "${{secrets.OCI_KEY_FILE}}" >> ~/.oci/key.pem
-          more ~/.oci/config
-
+      - name: 'Write Public Key'
+        run: |
+          echo "${{secrets.OCI_PUBLIC_KEY}}" >> ~/.oci/id_oci_demo.pub
       - name: 'List Instances'
         run: |
           ./gradlew listInstances \
@@ -65,3 +66,13 @@ jobs:
         with:
           name: 'github-actions-micronaut-demo-${{env.VERSION}}-all.jar'
           path: build/libs/*-all.jar
+
+      - name: 'Create Instance'
+        run: |
+          ./gradlew setupInstance \
+            --compartment-id=ocid1.compartment.oc1..aaaaaaaa7lzppsdxt6j56zhpvy6u5gyrenwyc2e2h4fak5ydvv6kt7anizbq \
+            --verbose \
+            --instance-name=github-actions-micronaut-demo-${{env.VERSION}}-${date +%d_%m_%Y_%H_%M_%S} \
+            --image=java-11-custom-image \
+            --shape=VM.Standard2.1 \
+            --public-key-file=~/.oci/id_oci_demo.pub
