@@ -26,7 +26,14 @@ jobs:
           echo "passphrase=${{secrets.OCI_PASSPHRASE}}" >> ~/.oci/config
           echo "region=${{secrets.OCI_REGION}}" >> ~/.oci/config
           echo "tenancy=${{secrets.OCI_TENANCY_OCID}}" >> ~/.oci/config
+          echo "key_file=~/.oci/key.pem" >> ~/.oci/config
+          echo "${{secrets.OCI_KEY_FILE}}" >> ~/.oci/key.pem
           more ~/.oci/config
+
+      - name: 'List Instances'
+        run: |
+          ./gradlew listInstances
+
       - name: 'Setup Java'
         uses: actions/setup-java@v1
         with:
