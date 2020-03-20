@@ -4,15 +4,15 @@ on:
     branches:
       - master
 jobs:
-  demo-job:
-    name: Demo Job
+  build-job:
+    name: Build Job
     runs-on: ubuntu-latest
     steps:
-      - name: 'Start build'
+      - name: 'Start build job'
         env:
           FOO: bar
         run: |
-          echo "Starting the build. Foo is $FOO."
+          echo "Starting the build job. Foo is $FOO."
 
       - name: 'Checkout'
         uses: actions/checkout@v1
@@ -39,3 +39,12 @@ jobs:
         with:
           name: 'github-actions-micronaut-demo-${{env.VERSION}}-all.jar'
           path: build/libs/*-all.jar
+  publish-job:
+    name: Publish Artifacts Job
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Start publish job'
+        env:
+          FOO: bar
+        run: |
+          echo "Starting the publish job. Foo is $FOO."
