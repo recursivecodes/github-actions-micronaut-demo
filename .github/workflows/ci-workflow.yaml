@@ -76,5 +76,5 @@ jobs:
             --instance-name=github-actions-micronaut-demo-${{env.VERSION}}-$(date +%d%m%Y%H%M%S) \
             --image=java-11-custom-image \
             --shape=VM.Standard2.1 \
-            --public-key-file=/home/runner/.oci/id_oci_demo.pub
+            --public-key-file=/home/runner/.oci/id_oci_demo.pub \
             --user-data-file=/home/runner/cloud-init.sh
