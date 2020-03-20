@@ -28,8 +28,9 @@ jobs:
           echo "tenancy=${{secrets.OCI_TENANCY_OCID}}" >> ~/.oci/config
           echo "key_file=~/.oci/key.pem" >> ~/.oci/config
           echo "${{secrets.OCI_KEY_FILE}}" >> ~/.oci/key.pem
-      - name: 'Write Public Key'
+      - name: 'Write Public Key & User Data File'
         run: |
+          touch ~/cloud-init.sh
           echo "${{secrets.OCI_PUBLIC_KEY}}" >> ~/.oci/id_oci_demo.pub
       - name: 'List Instances'
         run: |
@@ -75,4 +76,5 @@ jobs:
             --instance-name=github-actions-micronaut-demo-${{env.VERSION}}-$(date +%d%m%Y%H%M%S) \
             --image=java-11-custom-image \
             --shape=VM.Standard2.1 \
-            --public-key-file=~/.oci/id_oci_demo.pub
+            --public-key-file=/home/runner/.oci/id_oci_demo.pub
+            --user-data-file=/home/runner/cloud-init.sh
