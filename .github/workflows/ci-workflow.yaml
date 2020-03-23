@@ -113,7 +113,7 @@ jobs:
           username: opc
           key: ${{ secrets.OCI_INSTANCE_PRIVATE_KEY }}
           source: "build/libs/github-actions-micronaut-demo-${{env.VERSION}}-all.jar"
-          target: "/app/github-actions-micronaut-demo.jar"
+          target: "github-actions-micronaut-demo.jar"
 
       - name: 'Start App'
         uses: appleboy/ssh-action@master
@@ -122,4 +122,5 @@ jobs:
           username: opc
           key: ${{ secrets.OCI_INSTANCE_PRIVATE_KEY }}
           script: |
+            mv ~/github-actions-micronaut-demo.jar /app/github-actions-micronaut-demo.jar
             java -jar /app/github-actions-micronaut-demo.jar
