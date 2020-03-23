@@ -80,8 +80,12 @@ jobs:
           }
           echo "yo..."
           echo $(prop 'vcn.security-list.id')
-          echo "::set-env name=SECURITY_LIST_ID::$(prop 'vcn.security-list.id')"
-          echo "::set-env name=IP_ADDRESS::$(prop 'instance.public-ip.0')"
+          export SEC_LIST_ID = $(prop 'vcn.security-list.id')
+          export IP = $(prop 'instance.public-ip.0')
+          echo "::set-env name=SECURITY_LIST_ID::$SEC_LIST_ID"
+          echo "::set-env name=IP_ADDRESS::$IP"
+          echo "::set-env name=MONKEY::see"
+          echo ${{env.MONKEY}}
           echo ${{env.SECURITY_LIST_ID}}
           echo ${{env.IP_ADDRESS}}
           echo done...
