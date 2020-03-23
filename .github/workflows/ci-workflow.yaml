@@ -72,9 +72,13 @@ jobs:
             -PpublicKeyFile=/home/runner/.oci/id_oci_demo.pub \
             -PuserDataFile=/home/runner/cloud-init.sh
 
+      - name: 'Add Ingress Rule'
+        run: |
+          ./gradlew step02
+
       - name: 'Get IP'
         run: |
-          echo "::set-env name=IP_ADDRESS::$(./gradlew step02 -q | grep "ip:" | awk '{print $2}')"
+          echo "::set-env name=IP_ADDRESS::$(./gradlew step03 -q | grep "ip:" | awk '{print $2}')"
 
       - name: 'Push JAR'
         run: |
