@@ -91,10 +91,6 @@ jobs:
             --destination-port=8080 \
             --security-list-id=${{env.SECURITY_LIST_ID}}
 
-      - name: 'Push JAR'
-        run: |
-          echo IP: ${{env.IP_ADDRESS}}
-
       - name: 'Stop App'
         uses: appleboy/ssh-action@master
         with:
@@ -103,8 +99,17 @@ jobs:
           key: ${{ secrets.OCI_INSTANCE_PRIVATE_KEY }}
           script: |
               pid=`ps aux | grep "[g]ithub-actions-micronaut-demo*" | awk '{print $2}'`
-              if [ -z "$pid" ]; then
-                kill -9 $pid
-              else
+              if [ "$pid" == "" ]; then
                 echo "Process not found"
+              else
+                kill -9 $pid
               fi
+
+      - name: 'Push JAR'
+          uses: appleboy/scp-action@master
+          with:
+            host: ${{ env.IP_ADDRESS }}
+            username: opc
+            key: ${{ secrets.OCI_INSTANCE_PRIVATE_KEY }}
+            source: "build/libs/github-actions-micronaut-demo-${{env.VERSION}}-all.jar"
+            target: "github-actions-micronaut-demo.jar"
