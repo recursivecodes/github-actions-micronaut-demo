@@ -70,11 +70,13 @@ jobs:
 
       - name: 'Create Instance'
         run: |
-          ./gradlew setupInstance \
+          ./gradlew createInstance \
             --compartment-id=ocid1.compartment.oc1..aaaaaaaa7lzppsdxt6j56zhpvy6u5gyrenwyc2e2h4fak5ydvv6kt7anizbq \
             --verbose \
+            --subnet-id=ocid1.vcn.oc1.phx.aaaaaaaaqzdv7gcudproyhpenunyvsfrwwab5qqljvlax6tyxsxoteaehzfa \
             --instance-name=github-actions-micronaut-demo-${{env.VERSION}}-$(date +%d%m%Y%H%M%S) \
             --image=java-11-custom-image \
             --shape=VM.Standard2.1 \
+            --wait-for-completion=true \
             --public-key-file=/home/runner/.oci/id_oci_demo.pub \
             --user-data-file=/home/runner/cloud-init.sh
