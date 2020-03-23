@@ -32,12 +32,6 @@ jobs:
         run: |
           touch ~/cloud-init.sh
           echo "${{secrets.OCI_PUBLIC_KEY}}" >> ~/.oci/id_oci_demo.pub
-      - name: 'List Instances'
-        run: |
-          ./gradlew listInstances \
-              --availability-domain odti:PHX-AD-1 \
-              --verbose \
-              --compartment-id ocid1.compartment.oc1..aaaaaaaa7lzppsdxt6j56zhpvy6u5gyrenwyc2e2h4fak5ydvv6kt7anizbq
 
       - name: 'Setup Java'
         uses: actions/setup-java@v1
@@ -71,7 +65,7 @@ jobs:
 
       - name: 'Create Instance'
         run: |
-          ./gradlew step01TaskSettings \
+          ./gradlew step01 \
             -Doci.compartment.id=ocid1.compartment.oc1..aaaaaaaa7lzppsdxt6j56zhpvy6u5gyrenwyc2e2h4fak5ydvv6kt7anizbq \
             -Doci.instance.name=github-actions-micronaut-demo \
             -Doci.public.key.file=/home/runner/.oci/id_oci_demo.pub \
