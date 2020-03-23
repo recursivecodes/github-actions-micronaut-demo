@@ -122,4 +122,4 @@ jobs:
           key: ${{ secrets.OCI_INSTANCE_PRIVATE_KEY }}
           script: |
             sudo mv ~/app/github-actions-micronaut-demo-${{env.VERSION}}-all.jar /app/github-actions-micronaut-demo.jar
-            nohup java -jar /app/github-actions-micronaut-demo.jar > output.log 2>&1 &
+            nohup java -jar /app/github-actions-micronaut-demo.jar > output.$(date --iso).log 2>&1 &
