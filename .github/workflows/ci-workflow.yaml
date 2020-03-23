@@ -78,18 +78,18 @@ jobs:
           function prop {
               grep "${1}" build/oci/instance/actions1.properties|cut -d'=' -f2
           }
-          echo $(prop 'vcn.security-list.id')
+          echo "::set-env name=SECURITY_LIST_ID::$(prop 'vcn.security-list.id')"
+          echo "::set-env name=IP_ADDRESS::$(prop 'instance.public-ip.0')"
+          echo $SECURITY_LIST_ID
+          echo $IP_ADDRESS
           echo done...
 
       - name: 'Add Ingress Rule'
         run: |
-          ./gradlew step02 \
-            -Doci.compartment.id=ocid1.compartment.oc1..aaaaaaaa7lzppsdxt6j56zhpvy6u5gyrenwyc2e2h4fak5ydvv6kt7anizbq
-
-      - name: 'Get IP'
-        run: |
-          echo "::set-env name=IP_ADDRESS::$(./gradlew step03 -q | grep "ip:" | awk '{print $2}')"
+          ./gradlew addIngressSecurityRule \
+            --destination-port=8080
+            --security-list-id=${{env.SECURITY_LIST_ID}}
 
       - name: 'Push JAR'
         run: |
-          echo IP: $IP_ADDRESS
+          echo IP: ${{IP_ADDRESS}}
