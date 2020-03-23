@@ -29,6 +29,8 @@ public class HelloController {
     public HttpResponse index() {
         return HttpResponse.ok(
                 Map.of(
+
+                            "todd", "sharp",
                         "foo", "bar",
                         "appEnv", applicationContext.getEnvironment().getActiveNames(),
                         "id", serviceInstance.getId(),
