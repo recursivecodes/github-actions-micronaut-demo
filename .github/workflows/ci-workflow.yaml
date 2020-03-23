@@ -89,7 +89,6 @@ jobs:
       - name: 'Add Ingress Rule'
         run: |
           echo ${{env.$SECURITY_LIST_ID}}
-          echo $SECURITY_LIST_ID
           ./gradlew addIngressSecurityRule \
             --destination-port=8080
             --security-list-id=${{env.$SECURITY_LIST_ID}}
