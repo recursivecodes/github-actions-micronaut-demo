@@ -30,8 +30,8 @@ jobs:
           echo "${{secrets.OCI_KEY_FILE}}" >> ~/.oci/key.pem
       - name: 'Write Public Key & User Data File'
         run: |
-          touch ~/cloud-init.sh
-          echo "${{secrets.OCI_PUBLIC_KEY}}" >> ~/.oci/id_oci_demo.pub
+          touch /home/runner/cloud-init.sh
+          echo "${{secrets.OCI_PUBLIC_KEY}}" >> /home/runner/.oci/id_oci_demo.pub
 
       - name: 'Setup Java'
         uses: actions/setup-java@v1
