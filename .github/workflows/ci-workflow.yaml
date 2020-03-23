@@ -72,10 +72,10 @@ jobs:
       - name: 'Create Instance'
         run: |
           ./gradlew step01TaskSettings \
-            -Poci.compartment.id=ocid1.compartment.oc1..aaaaaaaa7lzppsdxt6j56zhpvy6u5gyrenwyc2e2h4fak5ydvv6kt7anizbq \
-            -Poci.instance.name=github-actions-micronaut-demo \
-            -Poci.public.key.file=/home/runner/.oci/id_oci_demo.pub \
-            -Poci.user.data.file=/home/runner/cloud-init.sh
+            -Doci.compartment.id=ocid1.compartment.oc1..aaaaaaaa7lzppsdxt6j56zhpvy6u5gyrenwyc2e2h4fak5ydvv6kt7anizbq \
+            -Doci.instance.name=github-actions-micronaut-demo \
+            -Doci.public.key.file=/home/runner/.oci/id_oci_demo.pub \
+            -Doci.user.data.file=/home/runner/cloud-init.sh
 
       - name: 'Get IP'
         run: |
