@@ -7,11 +7,15 @@ import io.micronaut.http.HttpResponse;
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Get;
 import io.micronaut.runtime.event.annotation.EventListener;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Map;
 
 @Controller("/hello")
 public class HelloController {
+
+    private static final Logger LOG = LoggerFactory.getLogger(HelloController.class);
 
     private final ApplicationContext applicationContext;
     private ServiceInstance serviceInstance;
@@ -27,10 +31,10 @@ public class HelloController {
 
     @Get("/")
     public HttpResponse index() {
+        LOG.info("You invoked /hello/");
         return HttpResponse.ok(
                 Map.of(
-
-                            "todd", "sharp",
+                        "todd", "sharp",
                         "foo", "bar",
                         "appEnv", applicationContext.getEnvironment().getActiveNames(),
                         "id", serviceInstance.getId(),
