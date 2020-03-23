@@ -122,5 +122,5 @@ jobs:
           username: opc
           key: ${{ secrets.OCI_INSTANCE_PRIVATE_KEY }}
           script: |
-            mv ~/github-actions-micronaut-demo.jar /app/github-actions-micronaut-demo.jar
+            sudo mv ~/github-actions-micronaut-demo.jar /app/github-actions-micronaut-demo.jar
             java -jar /app/github-actions-micronaut-demo.jar
