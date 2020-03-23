@@ -64,8 +64,8 @@ def step01 = tasks.register('step01', org.kordamp.gradle.plugin.oci.tasks.instan
     verbose       = true
     image         = 'java-11-custom-image'
     shape         = 'VM.Standard.E2.1'
-    publicKeyFile = file("${project.publicKeyFile}")
-    userDataFile  = file("${project.userDataFile}")
+    publicKeyFile = file("${System.getProperty("publicKeyFile")}")
+    userDataFile  = file("${System.getProperty("userDataFile")}")
 }
 
 def step02 = {
