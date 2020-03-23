@@ -59,6 +59,16 @@ tasks.withType(JavaCompile){
     options.compilerArgs.add('-parameters')
 }
 
+def step01 = tasks.register('step01', org.kordamp.gradle.plugin.oci.tasks.instance.SetupInstanceTask) {
+    verbose       = true
+    image         = 'java-11-custom-image'
+    shape         = 'VM.Standard.E2.1'
+}
+
+def step02 = {
+    println it.outputProperty('ip: instance.public-ip.0')
+}
+
 shadowJar {
     mergeServiceFiles()
 }

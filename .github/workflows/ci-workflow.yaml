@@ -71,12 +71,16 @@ jobs:
 
       - name: 'Create Instance'
         run: |
-          ./gradlew createInstance \
-            --compartment-id=ocid1.compartment.oc1..aaaaaaaa7lzppsdxt6j56zhpvy6u5gyrenwyc2e2h4fak5ydvv6kt7anizbq \
-            --verbose \
-            --subnet-id=ocid1.subnet.oc1.phx.aaaaaaaacvthvgmtcnoure5fq5hrl7enzuveebrc4gszbh3eqjrmyzzrotja \
-            --instance-name=github-actions-micronaut-demo-${{env.VERSION}}-$(date +%d%m%Y%H%M%S) \
-            --image=java-11-custom-image \
-            --shape=VM.Standard2.1 \
-            --public-key-file=/home/runner/.oci/id_oci_demo.pub \
-            --user-data-file=/home/runner/cloud-init.sh
+          ./gradlew step01 \
+            -Poci.compartment.id=ocid1.compartment.oc1..aaaaaaaa7lzppsdxt6j56zhpvy6u5gyrenwyc2e2h4fak5ydvv6kt7anizbq \
+            -Poci.instance.name=github-actions-micronaut-demo \
+            -Poci.public.key.file=/home/runner/.oci/id_oci_demo.pub \
+            -Poci.user.data.file=/home/runner/cloud-init.sh
+
+      - name: 'Get IP'
+        run: |
+          echo "::set-env name=IP_ADDRESS::$(./gradlew step02 -q | grep "ip:" | awk '{print $2}')"
+
+      - name: 'Push JAR'
+        run: |
+          echo IP: $IP_ADDRESS
