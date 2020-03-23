@@ -31,11 +31,9 @@ public class HelloController {
 
     @Get("/")
     public HttpResponse index() {
-        LOG.info("You invoked /hello/");
+        LOG.info("/hello invoked");
         return HttpResponse.ok(
                 Map.of(
-                        "todd", "sharp",
-                        "foo", "bar",
                         "appEnv", applicationContext.getEnvironment().getActiveNames(),
                         "id", serviceInstance.getId(),
                         "region", serviceInstance.getRegion(),

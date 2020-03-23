@@ -68,15 +68,6 @@ def step01 = tasks.register('step01', org.kordamp.gradle.plugin.oci.tasks.instan
     userDataFile  = file("${project.userDataFile}")
 }
 
-tasks.register('step02', org.kordamp.gradle.plugin.oci.tasks.instance.AddIngressSecurityRuleTask) {
-    destinationPort = '8080'
-    securityListId  = step01.map { it.outputProperty('vcn.security-list.id') }
-}
-
-tasks.register('step03') {
-    println step01.map { it.outputProperty('ip: instance.public-ip.0') }
-}
-
 shadowJar {
     mergeServiceFiles()
 }
