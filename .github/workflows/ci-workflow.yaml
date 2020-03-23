@@ -88,8 +88,8 @@ jobs:
         run: |
           ./gradlew addIngressSecurityRule \
             --destination-port=8080
-            --security-list-id=${{env.SECURITY_LIST_ID}}
+            --security-list-id=${SECURITY_LIST_ID}
 
       - name: 'Push JAR'
         run: |
-          echo IP: ${{env.IP_ADDRESS}}
+          echo IP: ${IP_ADDRESS}
