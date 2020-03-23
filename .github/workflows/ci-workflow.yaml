@@ -94,3 +94,11 @@ jobs:
       - name: 'Push JAR'
         run: |
           echo IP: ${{env.IP_ADDRESS}}
+
+      - name: 'Stop App'
+          uses: appleboy/ssh-action@master
+          with:
+            host: ${{ env.IP_ADDRESS }}
+            username: opc
+            key: ${{ secrets.OCI_INSTANCE_PRIVATE_KEY }}
+            script: whoami
