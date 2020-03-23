@@ -69,7 +69,7 @@ def step01 = tasks.register('step01', org.kordamp.gradle.plugin.oci.tasks.instan
 }
 
 def step02 = tasks.register('step02') {
-    println it.outputProperty('ip: instance.public-ip.0')
+    println step01.map { it.outputProperty('ip: instance.public-ip.0') }
 }
 
 shadowJar {
