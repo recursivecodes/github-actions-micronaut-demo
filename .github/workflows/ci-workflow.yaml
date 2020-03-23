@@ -36,6 +36,7 @@ jobs:
         run: |
           ./gradlew listInstances \
               --availability-domain odti:PHX-AD-1 \
+              --verbose \
               --compartment-id ocid1.compartment.oc1..aaaaaaaa7lzppsdxt6j56zhpvy6u5gyrenwyc2e2h4fak5ydvv6kt7anizbq
 
       - name: 'Setup Java'
@@ -43,13 +44,13 @@ jobs:
         with:
           java-version: 11
 
-      - name: 'Assemble JAR'
-        run: |
-          ./gradlew assemble
-
       - name: 'Run Tests'
         run: |
           ./gradlew test
+
+      - name: 'Assemble JAR'
+        run: |
+          ./gradlew assemble
 
       - name: 'Publish Test Report'
         if: always()
@@ -77,6 +78,5 @@ jobs:
             --instance-name=github-actions-micronaut-demo-${{env.VERSION}}-$(date +%d%m%Y%H%M%S) \
             --image=java-11-custom-image \
             --shape=VM.Standard2.1 \
-            --wait-for-completion=true \
             --public-key-file=/home/runner/.oci/id_oci_demo.pub \
             --user-data-file=/home/runner/cloud-init.sh
