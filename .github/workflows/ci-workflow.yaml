@@ -93,4 +93,4 @@ jobs:
 
       - name: 'Push JAR'
         run: |
-          echo IP: ${{envIP_ADDRESS}}
+          echo IP: ${{env.IP_ADDRESS}}
