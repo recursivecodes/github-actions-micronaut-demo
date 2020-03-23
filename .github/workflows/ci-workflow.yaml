@@ -72,9 +72,14 @@ jobs:
             -PpublicKeyFile=/home/runner/.oci/id_oci_demo.pub \
             -PuserDataFile=/home/runner/cloud-init.sh
 
+      - name: 'Temp'
+        run: |
+          more /home/runner/work/github-actions-micronaut-demo/github-actions-micronaut-demo/build/oci/instance/actions1.properties
+
       - name: 'Add Ingress Rule'
         run: |
-          ./gradlew step02
+          ./gradlew step02 \
+            -Doci.compartment.id=ocid1.compartment.oc1..aaaaaaaa7lzppsdxt6j56zhpvy6u5gyrenwyc2e2h4fak5ydvv6kt7anizbq
 
       - name: 'Get IP'
         run: |
