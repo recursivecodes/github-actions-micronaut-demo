@@ -28,6 +28,7 @@ jobs:
           echo "tenancy=${{secrets.OCI_TENANCY_OCID}}" >> ~/.oci/config
           echo "key_file=~/.oci/key.pem" >> ~/.oci/config
           echo "${{secrets.OCI_KEY_FILE}}" >> ~/.oci/key.pem
+
       - name: 'Write Public Key & User Data File'
         run: |
           touch /home/runner/cloud-init.sh
@@ -69,8 +70,8 @@ jobs:
             -Doci.compartment.id=ocid1.compartment.oc1..aaaaaaaa7lzppsdxt6j56zhpvy6u5gyrenwyc2e2h4fak5ydvv6kt7anizbq \
             -Doci.instance.name=github-actions-micronaut-demo \
             -Doci.dns.label=demo-vcn
-            -Doci.public.key.file=/home/runner/.oci/id_oci_demo.pub \
-            -Doci.user.data.file=/home/runner/cloud-init.sh
+            -PpublicKeyFile=/home/runner/.oci/id_oci_demo.pub \
+            -PuserDataFile=/home/runner/cloud-init.sh
 
       - name: 'Get IP'
         run: |
