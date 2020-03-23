@@ -124,4 +124,7 @@ jobs:
           key: ${{ secrets.OCI_INSTANCE_PRIVATE_KEY }}
           script: |
             sudo mv ~/app/github-actions-micronaut-demo-${{env.VERSION}}-all.jar /app/github-actions-micronaut-demo.jar
-            nohup java -jar /app/github-actions-micronaut-demo.jar &
+            sudo touch /app/start.sh
+            sudo chmod +x /app/start.sh
+            echo "java -jar /app/github-actions-micronaut-demo.jar" | sudo tee -a /app/start.sh
+            nohup /app/start.sh &
