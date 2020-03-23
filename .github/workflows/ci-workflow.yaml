@@ -68,7 +68,7 @@ jobs:
         run: |
           ./gradlew step01 \
             -Doci.compartment.id=ocid1.compartment.oc1..aaaaaaaa7lzppsdxt6j56zhpvy6u5gyrenwyc2e2h4fak5ydvv6kt7anizbq \
-            -Doci.instance.name=actions-demo \
+            -Doci.instance.name=actions1 \
             -PpublicKeyFile=/home/runner/.oci/id_oci_demo.pub \
             -PuserDataFile=/home/runner/cloud-init.sh
 
