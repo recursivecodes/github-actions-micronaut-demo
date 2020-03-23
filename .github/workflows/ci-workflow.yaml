@@ -84,19 +84,13 @@ jobs:
           export IP=$(prop 'instance.public-ip.0')
           echo "::set-env name=SECURITY_LIST_ID::$SEC_LIST_ID"
           echo "::set-env name=IP_ADDRESS::$IP"
-          echo "::set-env name=MONKEY::see"
-          echo ${{env.MONKEY}}
-          echo ${{env.SECURITY_LIST_ID}}
-          echo ${{env.IP_ADDRESS}}
-          echo done...
 
       - name: 'Add Ingress Rule'
         run: |
-          echo ${{env.SECURITY_LIST_ID}}
           ./gradlew addIngressSecurityRule \
-            --destination-port=8080
+            --destination-port=8080 \
             --security-list-id=${{env.SECURITY_LIST_ID}}
 
       - name: 'Push JAR'
         run: |
-          echo IP: ${IP_ADDRESS}
+          echo IP: ${{envIP_ADDRESS}}
