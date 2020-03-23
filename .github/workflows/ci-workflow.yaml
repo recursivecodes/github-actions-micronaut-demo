@@ -114,6 +114,7 @@ jobs:
           key: ${{ secrets.OCI_INSTANCE_PRIVATE_KEY }}
           source: "build/libs/github-actions-micronaut-demo-${{env.VERSION}}-all.jar"
           target: "app"
+          strip_components: 2
 
       - name: 'Start App'
         uses: appleboy/ssh-action@master
