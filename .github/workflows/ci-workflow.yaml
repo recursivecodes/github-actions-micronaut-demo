@@ -82,7 +82,7 @@ jobs:
           echo $(prop 'vcn.security-list.id')
           echo "::set-env name=SECURITY_LIST_ID::$(prop 'vcn.security-list.id')"
           echo "::set-env name=IP_ADDRESS::$(prop 'instance.public-ip.0')"
-          echo ${{env.$SECURITY_LIST_ID}}
+          echo ${{env.SECURITY_LIST_ID}}
           echo ${{env.IP_ADDRESS}}
           echo done...
 
