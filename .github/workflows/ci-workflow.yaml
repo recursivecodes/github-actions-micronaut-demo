@@ -96,9 +96,11 @@ jobs:
           echo IP: ${{env.IP_ADDRESS}}
 
       - name: 'Stop App'
-          uses: appleboy/ssh-action@master
-          with:
-            host: ${{ env.IP_ADDRESS }}
-            username: opc
-            key: ${{ secrets.OCI_INSTANCE_PRIVATE_KEY }}
-            script: whoami
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ env.IP_ADDRESS }}
+          username: opc
+          key: ${{ secrets.OCI_INSTANCE_PRIVATE_KEY }}
+          script: |
+              pid=`ps aux | grep myapp | awk '{print $2}'`
+              kill -9 $pid
