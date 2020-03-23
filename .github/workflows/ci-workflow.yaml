@@ -102,5 +102,9 @@ jobs:
           username: opc
           key: ${{ secrets.OCI_INSTANCE_PRIVATE_KEY }}
           script: |
-              pid=`ps aux | grep myapp | awk '{print $2}'`
-              kill -9 $pid
+              pid=`ps aux | grep "[g]ithub-actions-micronaut-demo*" | awk '{print $2}'`
+              if [ -z "$pid" ]; then
+                kill -9 $pid
+              else
+                echo "Process not found"
+              fi
