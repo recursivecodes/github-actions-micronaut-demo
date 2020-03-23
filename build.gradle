@@ -63,7 +63,7 @@ tasks.withType(JavaCompile){
 def step01 = tasks.register('step01', org.kordamp.gradle.plugin.oci.tasks.instance.SetupInstanceTask) {
     verbose       = true
     image         = 'java-11-custom-image'
-    shape         = 'VM.Standard.2.1'
+    shape         = 'VM.Standard2.1'
     publicKeyFile = file("${project.publicKeyFile}")
     userDataFile  = file("${project.userDataFile}")
 }
