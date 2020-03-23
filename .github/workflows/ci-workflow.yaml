@@ -68,6 +68,7 @@ jobs:
           ./gradlew step01 \
             -Doci.compartment.id=ocid1.compartment.oc1..aaaaaaaa7lzppsdxt6j56zhpvy6u5gyrenwyc2e2h4fak5ydvv6kt7anizbq \
             -Doci.instance.name=github-actions-micronaut-demo \
+            -Doci.dns.label=demo-vcn
             -Doci.public.key.file=/home/runner/.oci/id_oci_demo.pub \
             -Doci.user.data.file=/home/runner/cloud-init.sh
 
