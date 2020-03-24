@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Controller("/hello")
 public class HelloController {
@@ -41,7 +42,11 @@ public class HelloController {
                         "instanceId", serviceInstance.getInstanceId(),
                         "host", serviceInstance.getHost(),
                         "metadata", serviceInstance.getMetadata()
-                                .asMap().entrySet().stream().filter( it -> it.getKey() != "ssh_authorized_keys")
+                                .asMap()
+                                .entrySet()
+                                .stream()
+                                .filter( it -> it.getKey() != "ssh_authorized_keys")
+                                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue))
                 )
         );
     }
