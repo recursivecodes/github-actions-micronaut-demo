@@ -39,7 +39,8 @@ public class HelloController {
                         "id", serviceInstance.getId(),
                         "region", serviceInstance.getRegion(),
                         "instanceId", serviceInstance.getInstanceId(),
-                        "host", serviceInstance.getHost()
+                        "host", serviceInstance.getHost(),
+                        "metadata", serviceInstance.getMetadata()
                 )
         );
     }
