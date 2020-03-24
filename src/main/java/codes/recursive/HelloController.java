@@ -41,6 +41,7 @@ public class HelloController {
                         "instanceId", serviceInstance.getInstanceId(),
                         "host", serviceInstance.getHost(),
                         "metadata", serviceInstance.getMetadata()
+                                .asMap().entrySet().stream().filter( it -> it.getKey() != "ssh_authorized_keys")
                 )
         );
     }
