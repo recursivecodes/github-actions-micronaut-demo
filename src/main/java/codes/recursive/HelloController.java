@@ -45,7 +45,7 @@ public class HelloController {
                                 .asMap()
                                 .entrySet()
                                 .stream()
-                                .filter( it -> it.getKey() != "ssh_authorized_keys")
+                                .filter( it -> !it.getKey().equals("ssh_authorized_keys"))
                                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue))
                 )
         );
