@@ -122,13 +122,13 @@ jobs:
           username: opc
           key: ${{ secrets.OCI_INSTANCE_PRIVATE_KEY }}
           script: |
-            echo "${{WALLET_CWALLET}}" | base64 -D >> /wallet-demodb/cwallet.sso
-            echo "${{WALLET_EWALLET}}" | base64 -D >> /wallet-demodb/ewallet.p12
-            echo "${{WALLET_KEYSTORE}}" | base64 -D >> /wallet-demodb/keystore.jks
-            echo "${{WALLET_OJDBC}}" | base64 -D >> /wallet-demodb/ojdbc.properties
-            echo "${{WALLET_SQLNET}}" | base64 -D >> /wallet-demodb/sqlnet.ora
-            echo "${{WALLET_TNSNAMES}}" | base64 -D >> /wallet-demodb/tnsnames.ora
-            echo "${{WALLET_TRUSTSTORE}}" | base64 -D >> /wallet-demodb/truststore.jks
+            echo "${{secrets.WALLET_CWALLET}}" | base64 -D >> /wallet-demodb/cwallet.sso
+            echo "${{secrets.WALLET_EWALLET}}" | base64 -D >> /wallet-demodb/ewallet.p12
+            echo "${{secrets.WALLET_KEYSTORE}}" | base64 -D >> /wallet-demodb/keystore.jks
+            echo "${{secrets.WALLET_OJDBC}}" | base64 -D >> /wallet-demodb/ojdbc.properties
+            echo "${{secrets.WALLET_SQLNET}}" | base64 -D >> /wallet-demodb/sqlnet.ora
+            echo "${{secrets.WALLET_TNSNAMES}}" | base64 -D >> /wallet-demodb/tnsnames.ora
+            echo "${{secrets.WALLET_TRUSTSTORE}}" | base64 -D >> /wallet-demodb/truststore.jks
 
       - name: 'Start App'
         uses: appleboy/ssh-action@master
