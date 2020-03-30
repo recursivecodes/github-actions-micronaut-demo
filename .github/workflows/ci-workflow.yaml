@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - master
+      - micronaut-data
 jobs:
   build-job:
     name: Build Job
@@ -113,6 +114,22 @@ jobs:
           source: "build/libs/github-actions-micronaut-demo-${{env.VERSION}}-all.jar"
           target: "app"
           strip_components: 2
+
+      - name: 'Write Wallet'
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ env.IP_ADDRESS }}
+          username: opc
+          key: ${{ secrets.OCI_INSTANCE_PRIVATE_KEY }}
+          script: |
+            echo "${{secrets.OCI_KEY_FILE}}" >> ~/.oci/key.pem
+            echo "${{WALLET_CWALLET}}" >> /wallet-demodb/cwallet.sso
+            echo "${{WALLET_EWALLET}}" >> /wallet-demodb/ewallet.p12
+            echo "${{WALLET_KEYSTORE}}" >> /wallet-demodb/keystore.jks
+            echo "${{WALLET_OJDBC}}" >> /wallet-demodb/ojdbc.properties
+            echo "${{WALLET_SQLNET}}" >> /wallet-demodb/sqlnet.ora
+            echo "${{WALLET_TNSNAMES}}" >> /wallet-demodb/tnsnames.ora
+            echo "${{WALLET_TRUSTSTORE}}" >> /wallet-demodb/truststore.jks
 
       - name: 'Start App'
         uses: appleboy/ssh-action@master
