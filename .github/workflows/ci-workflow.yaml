@@ -29,8 +29,6 @@ jobs:
           echo "tenancy=${{secrets.OCI_TENANCY_OCID}}" >> ~/.oci/config
           echo "key_file=~/.oci/key.pem" >> ~/.oci/config
           echo "${{secrets.OCI_KEY_FILE}}" >> ~/.oci/key.pem
-          touch /home/runner/cloud-init.sh
-          echo "${{secrets.OCI_PUBLIC_KEY}}" >> /home/runner/.oci/id_oci_demo.pub
           # wallet files needed for running tests
           sudo mkdir /wallet-demodb
           sudo sh -c  'echo "${{secrets.WALLET_CWALLET}}" | base64 -d >> /wallet-demodb/cwallet.sso'
@@ -70,6 +68,11 @@ jobs:
         with:
           name: 'github-actions-micronaut-demo-${{env.VERSION}}-all.jar'
           path: build/libs/*-all.jar
+
+      - name: 'Write Public Key & Cloud Init'
+        run: |
+          touch /home/runner/cloud-init.sh
+          echo "${{secrets.OCI_PUBLIC_KEY}}" >> /home/runner/.oci/id_oci_demo.pub
 
       - name: 'Create Instance'
         run: |
