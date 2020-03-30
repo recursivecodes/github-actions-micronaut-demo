@@ -32,6 +32,7 @@ jobs:
           touch /home/runner/cloud-init.sh
           echo "${{secrets.OCI_PUBLIC_KEY}}" >> /home/runner/.oci/id_oci_demo.pub
           # wallet files needed for running tests
+          mkdir /wallet-demodb
           echo "${{secrets.WALLET_CWALLET}}" | base64 -D >> /wallet-demodb/cwallet.sso
           echo "${{secrets.WALLET_EWALLET}}" | base64 -D >> /wallet-demodb/ewallet.p12
           echo "${{secrets.WALLET_KEYSTORE}}" | base64 -D >> /wallet-demodb/keystore.jks
@@ -127,6 +128,7 @@ jobs:
           username: opc
           key: ${{ secrets.OCI_INSTANCE_PRIVATE_KEY }}
           script: |
+              mkdir /wallet-demodb
               echo "${{secrets.WALLET_CWALLET}}" | base64 -D >> /wallet-demodb/cwallet.sso
               echo "${{secrets.WALLET_EWALLET}}" | base64 -D >> /wallet-demodb/ewallet.p12
               echo "${{secrets.WALLET_KEYSTORE}}" | base64 -D >> /wallet-demodb/keystore.jks
