@@ -122,7 +122,6 @@ jobs:
           username: opc
           key: ${{ secrets.OCI_INSTANCE_PRIVATE_KEY }}
           script: |
-            echo "${{secrets.OCI_KEY_FILE}}" >> ~/.oci/key.pem
             echo "${{WALLET_CWALLET}}" >> /wallet-demodb/cwallet.sso
             echo "${{WALLET_EWALLET}}" >> /wallet-demodb/ewallet.p12
             echo "${{WALLET_KEYSTORE}}" >> /wallet-demodb/keystore.jks
