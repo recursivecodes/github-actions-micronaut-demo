@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - master
+      - build-to-docker
 jobs:
   build-job:
     name: Build Job
@@ -64,62 +65,3 @@ jobs:
           name: 'github-actions-micronaut-demo-${{env.VERSION}}-all.jar'
           path: build/libs/*-all.jar
 
-      - name: 'Create Instance'
-        run: |
-          ./gradlew step01 \
-            -Doci.compartment.id=ocid1.compartment.oc1..aaaaaaaa7lzppsdxt6j56zhpvy6u5gyrenwyc2e2h4fak5ydvv6kt7anizbq \
-            -Doci.instance.name=actions1 \
-            -PpublicKeyFile=/home/runner/.oci/id_oci_demo.pub \
-            -PuserDataFile=/home/runner/cloud-init.sh
-
-      - name: 'Set Env Vars'
-        run: |
-          more build/oci/instance/actions1.properties
-          function prop {
-              grep "${1}" build/oci/instance/actions1.properties|cut -d'=' -f2
-          }
-          export SEC_LIST_ID=$(prop 'vcn.security-list.id')
-          export IP=$(prop 'instance.public-ip.0')
-          echo "::set-env name=SECURITY_LIST_ID::$SEC_LIST_ID"
-          echo "::set-env name=IP_ADDRESS::$IP"
-
-      - name: 'Add Ingress Rule'
-        run: |
-          ./gradlew addIngressSecurityRule \
-            --destination-port=8080 \
-            --security-list-id=${{env.SECURITY_LIST_ID}}
-
-      - name: 'Stop App'
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ env.IP_ADDRESS }}
-          username: opc
-          key: ${{ secrets.OCI_INSTANCE_PRIVATE_KEY }}
-          script: |
-              pid=`ps aux | grep "[g]ithub-actions-micronaut-demo*" | awk '{print $2}'`
-              if [ "$pid" == "" ]; then
-                echo "Process not found"
-              else
-                kill -9 $pid
-              fi
-              sudo mkdir -p /app
-
-      - name: 'Push JAR'
-        uses: appleboy/scp-action@master
-        with:
-          host: ${{ env.IP_ADDRESS }}
-          username: opc
-          key: ${{ secrets.OCI_INSTANCE_PRIVATE_KEY }}
-          source: "build/libs/github-actions-micronaut-demo-${{env.VERSION}}-all.jar"
-          target: "app"
-          strip_components: 2
-
-      - name: 'Start App'
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ env.IP_ADDRESS }}
-          username: opc
-          key: ${{ secrets.OCI_INSTANCE_PRIVATE_KEY }}
-          script: |
-            sudo mv ~/app/github-actions-micronaut-demo-${{env.VERSION}}-all.jar /app/github-actions-micronaut-demo.jar
-            nohup java -jar /app/github-actions-micronaut-demo.jar > output.$(date --iso).log 2>&1 &
