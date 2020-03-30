@@ -18,7 +18,7 @@ jobs:
       - name: 'Checkout'
         uses: actions/checkout@v1
 
-      - name: 'Write OCI Config File'
+      - name: 'Write Config & Key Files'
         run: |
           mkdir ~/.oci
           echo "[DEFAULT]" >> ~/.oci/config
@@ -29,11 +29,16 @@ jobs:
           echo "tenancy=${{secrets.OCI_TENANCY_OCID}}" >> ~/.oci/config
           echo "key_file=~/.oci/key.pem" >> ~/.oci/config
           echo "${{secrets.OCI_KEY_FILE}}" >> ~/.oci/key.pem
-
-      - name: 'Write Public Key & User Data File'
-        run: |
           touch /home/runner/cloud-init.sh
           echo "${{secrets.OCI_PUBLIC_KEY}}" >> /home/runner/.oci/id_oci_demo.pub
+          # wallet files needed for running tests
+          echo "${{secrets.WALLET_CWALLET}}" | base64 -D >> /wallet-demodb/cwallet.sso
+          echo "${{secrets.WALLET_EWALLET}}" | base64 -D >> /wallet-demodb/ewallet.p12
+          echo "${{secrets.WALLET_KEYSTORE}}" | base64 -D >> /wallet-demodb/keystore.jks
+          echo "${{secrets.WALLET_OJDBC}}" | base64 -D >> /wallet-demodb/ojdbc.properties
+          echo "${{secrets.WALLET_SQLNET}}" | base64 -D >> /wallet-demodb/sqlnet.ora
+          echo "${{secrets.WALLET_TNSNAMES}}" | base64 -D >> /wallet-demodb/tnsnames.ora
+          echo "${{secrets.WALLET_TRUSTSTORE}}" | base64 -D >> /wallet-demodb/truststore.jks
 
       - name: 'Setup Java'
         uses: actions/setup-java@v1
@@ -122,13 +127,13 @@ jobs:
           username: opc
           key: ${{ secrets.OCI_INSTANCE_PRIVATE_KEY }}
           script: |
-            echo "${{secrets.WALLET_CWALLET}}" | base64 -D >> /wallet-demodb/cwallet.sso
-            echo "${{secrets.WALLET_EWALLET}}" | base64 -D >> /wallet-demodb/ewallet.p12
-            echo "${{secrets.WALLET_KEYSTORE}}" | base64 -D >> /wallet-demodb/keystore.jks
-            echo "${{secrets.WALLET_OJDBC}}" | base64 -D >> /wallet-demodb/ojdbc.properties
-            echo "${{secrets.WALLET_SQLNET}}" | base64 -D >> /wallet-demodb/sqlnet.ora
-            echo "${{secrets.WALLET_TNSNAMES}}" | base64 -D >> /wallet-demodb/tnsnames.ora
-            echo "${{secrets.WALLET_TRUSTSTORE}}" | base64 -D >> /wallet-demodb/truststore.jks
+              echo "${{secrets.WALLET_CWALLET}}" | base64 -D >> /wallet-demodb/cwallet.sso
+              echo "${{secrets.WALLET_EWALLET}}" | base64 -D >> /wallet-demodb/ewallet.p12
+              echo "${{secrets.WALLET_KEYSTORE}}" | base64 -D >> /wallet-demodb/keystore.jks
+              echo "${{secrets.WALLET_OJDBC}}" | base64 -D >> /wallet-demodb/ojdbc.properties
+              echo "${{secrets.WALLET_SQLNET}}" | base64 -D >> /wallet-demodb/sqlnet.ora
+              echo "${{secrets.WALLET_TNSNAMES}}" | base64 -D >> /wallet-demodb/tnsnames.ora
+              echo "${{secrets.WALLET_TRUSTSTORE}}" | base64 -D >> /wallet-demodb/truststore.jks
 
       - name: 'Start App'
         uses: appleboy/ssh-action@master
