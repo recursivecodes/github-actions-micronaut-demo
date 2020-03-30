@@ -18,7 +18,7 @@ jobs:
       - name: 'Checkout'
         uses: actions/checkout@v1
 
-      - name: 'Write OCI Config File'
+      - name: 'Write Config & Key Files'
         run: |
           mkdir ~/.oci
           echo "[DEFAULT]" >> ~/.oci/config
@@ -29,11 +29,18 @@ jobs:
           echo "tenancy=${{secrets.OCI_TENANCY_OCID}}" >> ~/.oci/config
           echo "key_file=~/.oci/key.pem" >> ~/.oci/config
           echo "${{secrets.OCI_KEY_FILE}}" >> ~/.oci/key.pem
-
-      - name: 'Write Public Key & User Data File'
-        run: |
+          # write cloud init file & oci public ssh key
           touch /home/runner/cloud-init.sh
           echo "${{secrets.OCI_PUBLIC_KEY}}" >> /home/runner/.oci/id_oci_demo.pub
+          # wallet files needed for running tests
+          sudo mkdir /wallet-demodb
+          sudo sh -c  'echo "${{secrets.WALLET_CWALLET}}" | base64 -d >> /wallet-demodb/cwallet.sso'
+          sudo sh -c  'echo "${{secrets.WALLET_EWALLET}}" | base64 -d >> /wallet-demodb/ewallet.p12'
+          sudo sh -c  'echo "${{secrets.WALLET_KEYSTORE}}" | base64 -d >> /wallet-demodb/keystore.jks'
+          sudo sh -c  'echo "${{secrets.WALLET_OJDBC}}" | base64 -d >> /wallet-demodb/ojdbc.properties'
+          sudo sh -c  'echo "${{secrets.WALLET_SQLNET}}" | base64 -d >> /wallet-demodb/sqlnet.ora'
+          sudo sh -c  'echo "${{secrets.WALLET_TNSNAMES}}" | base64 -d >> /wallet-demodb/tnsnames.ora'
+          sudo sh -c  'echo "${{secrets.WALLET_TRUSTSTORE}}" | base64 -d >> /wallet-demodb/truststore.jks'
 
       - name: 'Setup Java'
         uses: actions/setup-java@v1

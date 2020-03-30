@@ -74,9 +74,12 @@ tasks.withType(JavaCompile){
 }
 
 /* default project properties to keep intellij from annoying me with warnings */
-ext.publicKeyFile=''
-ext.userDataFile=''
-
+if(! hasProperty("publicKeyFile")){
+    ext.publicKeyFile=""
+}
+if(! hasProperty("userDataFile")){
+    ext.userDataFile=""
+}
 def step01 = tasks.register('step01', org.kordamp.gradle.plugin.oci.tasks.instance.SetupInstanceTask) {
     verbose       = true
     image         = 'java-11-custom-image'
