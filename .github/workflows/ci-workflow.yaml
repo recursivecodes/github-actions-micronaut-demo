@@ -100,4 +100,4 @@ jobs:
         env:
           KUBE_CONFIG_DATA: ${{ secrets.OKE_KUBE_CONFIG }}
         with:
-          args: '"set image deployment/github-actions-micronaut-demo github-actions-micronaut-demo=phx.ocir.io/toddrsharp/github-actions-micronaut-demo/github-actions-micronaut-demo:latest "'
+          args: '"delete pod github-actions-micronaut-demo"'
