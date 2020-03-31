@@ -88,20 +88,6 @@ jobs:
         with:
           args: push phx.ocir.io/toddrsharp/github-actions-micronaut-demo/github-actions-micronaut-demo:latest
 
-      - name: 'Set Current Kubernetes User To Service Account'
-        uses: steebchen/kubectl@master
-        env:
-          KUBE_CONFIG_DATA: ${{ secrets.OKE_KUBE_CONFIG }}
-        with:
-          args: '"config set-context --current --user=github-actions-demo"'
-
-      - name: 'View current config...'
-        uses: steebchen/kubectl@master
-        env:
-          KUBE_CONFIG_DATA: ${{ secrets.OKE_KUBE_CONFIG }}
-        with:
-          args: '"config view --minify --flatten"'
-
       - name: 'Deploy To Kubernetes'
         uses: steebchen/kubectl@master
         env:

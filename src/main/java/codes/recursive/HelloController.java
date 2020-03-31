@@ -35,6 +35,7 @@ public class HelloController {
         LOG.info("/hello invoked");
         return HttpResponse.ok(
                 Map.of(
+                        "k8s", true,
                         "foo", "bar",
                         "appEnv", applicationContext.getEnvironment().getActiveNames(),
                         "id", serviceInstance.getId(),
