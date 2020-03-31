@@ -3,7 +3,7 @@ on:
   push:
     branches:
       - master
-      - build-to-docker
+      - deploy-to-k8s
 jobs:
   build-job:
     name: Build Job
