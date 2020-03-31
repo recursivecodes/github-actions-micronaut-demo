@@ -1,0 +1,44 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: github-actions-micronaut-demo
+  labels:
+    app: github-actions-micronaut-demo
+spec:
+  type: LoadBalancer
+  selector:
+    app: github-actions-micronaut-demo
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 8080
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: github-actions-micronaut-demo
+  labels:
+    app: github-actions-micronaut-demo
+    version: v1
+spec:
+  selector:
+    matchLabels:
+      app: github-actions-micronaut-demo
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: github-actions-micronaut-demo
+        version: v1
+    spec:
+      containers:
+      - name: github-actions-micronaut-demo
+        image: phx.ocir.io/toddrsharp/github-actions-micronaut-demo/github-actions-micronaut-demo:latest
+        imagePullPolicy: Always
+        ports:
+          - containerPort: 8080
+          - containerPort: 8443
+      imagePullSecrets:
+        - name: regcred
+---
