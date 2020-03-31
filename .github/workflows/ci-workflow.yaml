@@ -33,14 +33,14 @@ jobs:
           touch /home/runner/cloud-init.sh
           echo "${{secrets.OCI_PUBLIC_KEY}}" >> /home/runner/.oci/id_oci_demo.pub
           # wallet files needed for running tests
-          sudo mkdir wallet-demodb
-          sudo sh -c  'echo "${{secrets.WALLET_CWALLET}}" | base64 -d >> /home/runner/wallet-demodb/cwallet.sso'
-          sudo sh -c  'echo "${{secrets.WALLET_EWALLET}}" | base64 -d >> /home/runner/wallet-demodb/ewallet.p12'
-          sudo sh -c  'echo "${{secrets.WALLET_KEYSTORE}}" | base64 -d >> /home/runner/wallet-demodb/keystore.jks'
-          sudo sh -c  'echo "${{secrets.WALLET_OJDBC}}" | base64 -d >> /home/runner/wallet-demodb/ojdbc.properties'
-          sudo sh -c  'echo "${{secrets.WALLET_SQLNET}}" | base64 -d >> /home/runner/wallet-demodb/sqlnet.ora'
-          sudo sh -c  'echo "${{secrets.WALLET_TNSNAMES}}" | base64 -d >> /home/runner/wallet-demodb/tnsnames.ora'
-          sudo sh -c  'echo "${{secrets.WALLET_TRUSTSTORE}}" | base64 -d >> /home/runner/wallet-demodb/truststore.jks'
+          sudo mkdir /home/runner/work/github-actions-micronaut-demo/github-actions-micronaut-demo/wallet-demodb
+          sudo sh -c  'echo "${{secrets.WALLET_CWALLET}}" | base64 -d >> /home/runner/work/github-actions-micronaut-demo/github-actions-micronaut-demo/wallet-demodb/cwallet.sso'
+          sudo sh -c  'echo "${{secrets.WALLET_EWALLET}}" | base64 -d >> /home/runner/work/github-actions-micronaut-demo/github-actions-micronaut-demo/wallet-demodb/ewallet.p12'
+          sudo sh -c  'echo "${{secrets.WALLET_KEYSTORE}}" | base64 -d >> /home/runner/work/github-actions-micronaut-demo/github-actions-micronaut-demo/wallet-demodb/keystore.jks'
+          sudo sh -c  'echo "${{secrets.WALLET_OJDBC}}" | base64 -d >> /home/runner/work/github-actions-micronaut-demo/github-actions-micronaut-demo/wallet-demodb/ojdbc.properties'
+          sudo sh -c  'echo "${{secrets.WALLET_SQLNET}}" | base64 -d >> /home/runner/work/github-actions-micronaut-demo/github-actions-micronaut-demo/wallet-demodb/sqlnet.ora'
+          sudo sh -c  'echo "${{secrets.WALLET_TNSNAMES}}" | base64 -d >> /home/runner/work/github-actions-micronaut-demo/github-actions-micronaut-demo/wallet-demodb/tnsnames.ora'
+          sudo sh -c  'echo "${{secrets.WALLET_TRUSTSTORE}}" | base64 -d >> /home/runner/work/github-actions-micronaut-demo/github-actions-micronaut-demo/wallet-demodb/truststore.jks'
 
       - name: 'Setup Java'
         uses: actions/setup-java@v1
