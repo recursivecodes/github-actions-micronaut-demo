@@ -88,6 +88,10 @@ jobs:
         with:
           args: push phx.ocir.io/toddrsharp/github-actions-micronaut-demo/github-actions-micronaut-demo:latest
 
+      - name: 'Test...'
+        run: |
+          ls -la
+          ls -la /home/runner/work/github-actions-micronaut-demo/github-actions-micronaut-demo
       - name: 'Deploy To Kubernetes'
         uses: steebchen/kubectl@master
         env:
