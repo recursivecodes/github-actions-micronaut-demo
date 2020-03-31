@@ -78,6 +78,7 @@ jobs:
         env:
           DOCKER_USERNAME: ${{ secrets.OCIR_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.OCIR_PASSWORD }}
+          DOCKER_REGISTRY_URL: phx.ocir.io
 
       - name: 'Docker Build'
         if: success()
