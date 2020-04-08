@@ -146,5 +146,6 @@ jobs:
           username: opc
           key: ${{ secrets.OCI_INSTANCE_PRIVATE_KEY }}
           script: |
+            # move jar and start app
             sudo mv ~/app/github-actions-micronaut-demo-${{env.VERSION}}-all.jar /app/github-actions-micronaut-demo.jar
             nohup java -jar -DDATASOURCES_DEFAULT_PASSWORD=${{secrets.DB_PASSWORD}} /app/github-actions-micronaut-demo.jar > output.$(date --iso).log 2>&1 &
