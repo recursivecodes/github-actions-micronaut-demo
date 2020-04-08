@@ -33,14 +33,14 @@ jobs:
           touch /home/runner/cloud-init.sh
           echo "${{secrets.OCI_PUBLIC_KEY}}" >> /home/runner/.oci/id_oci_demo.pub
           # wallet files needed for running tests
-          sudo mkdir /wallet-demodb
-          sudo sh -c  'echo "${{secrets.WALLET_CWALLET}}" | base64 -d >> /wallet-demodb/cwallet.sso'
-          sudo sh -c  'echo "${{secrets.WALLET_EWALLET}}" | base64 -d >> /wallet-demodb/ewallet.p12'
-          sudo sh -c  'echo "${{secrets.WALLET_KEYSTORE}}" | base64 -d >> /wallet-demodb/keystore.jks'
-          sudo sh -c  'echo "${{secrets.WALLET_OJDBC}}" | base64 -d >> /wallet-demodb/ojdbc.properties'
-          sudo sh -c  'echo "${{secrets.WALLET_SQLNET}}" | base64 -d >> /wallet-demodb/sqlnet.ora'
-          sudo sh -c  'echo "${{secrets.WALLET_TNSNAMES}}" | base64 -d >> /wallet-demodb/tnsnames.ora'
-          sudo sh -c  'echo "${{secrets.WALLET_TRUSTSTORE}}" | base64 -d >> /wallet-demodb/truststore.jks'
+          sudo mkdir /wallet
+          sudo sh -c  'echo "${{secrets.WALLET_CWALLET}}" | base64 -d >> /wallet/cwallet.sso'
+          sudo sh -c  'echo "${{secrets.WALLET_EWALLET}}" | base64 -d >> /wallet/ewallet.p12'
+          sudo sh -c  'echo "${{secrets.WALLET_KEYSTORE}}" | base64 -d >> /wallet/keystore.jks'
+          sudo sh -c  'echo "${{secrets.WALLET_OJDBC}}" | base64 -d >> /wallet/ojdbc.properties'
+          sudo sh -c  'echo "${{secrets.WALLET_SQLNET}}" | base64 -d >> /wallet/sqlnet.ora'
+          sudo sh -c  'echo "${{secrets.WALLET_TNSNAMES}}" | base64 -d >> /wallet/tnsnames.ora'
+          sudo sh -c  'echo "${{secrets.WALLET_TRUSTSTORE}}" | base64 -d >> /wallet/truststore.jks'
 
       - name: 'Setup Java'
         uses: actions/setup-java@v1
@@ -130,14 +130,14 @@ jobs:
           username: opc
           key: ${{ secrets.OCI_INSTANCE_PRIVATE_KEY }}
           script: |
-              sudo mkdir /wallet-demodb
-              sudo sh -c 'echo "${{secrets.WALLET_CWALLET}}" | base64 -d >> /wallet-demodb/cwallet.sso'
-              sudo sh -c 'echo "${{secrets.WALLET_EWALLET}}" | base64 -d >> /wallet-demodb/ewallet.p12'
-              sudo sh -c 'echo "${{secrets.WALLET_KEYSTORE}}" | base64 -d >> /wallet-demodb/keystore.jks'
-              sudo sh -c 'echo "${{secrets.WALLET_OJDBC}}" | base64 -d >> /wallet-demodb/ojdbc.properties'
-              sudo sh -c 'echo "${{secrets.WALLET_SQLNET}}" | base64 -d >> /wallet-demodb/sqlnet.ora'
-              sudo sh -c 'echo "${{secrets.WALLET_TNSNAMES}}" | base64 -d >> /wallet-demodb/tnsnames.ora'
-              sudo sh -c 'echo "${{secrets.WALLET_TRUSTSTORE}}" | base64 -d >> /wallet-demodb/truststore.jks'
+              sudo mkdir /wallet
+              sudo sh -c 'echo "${{secrets.WALLET_CWALLET}}" | base64 -d >> /wallet/cwallet.sso'
+              sudo sh -c 'echo "${{secrets.WALLET_EWALLET}}" | base64 -d >> /wallet/ewallet.p12'
+              sudo sh -c 'echo "${{secrets.WALLET_KEYSTORE}}" | base64 -d >> /wallet/keystore.jks'
+              sudo sh -c 'echo "${{secrets.WALLET_OJDBC}}" | base64 -d >> /wallet/ojdbc.properties'
+              sudo sh -c 'echo "${{secrets.WALLET_SQLNET}}" | base64 -d >> /wallet/sqlnet.ora'
+              sudo sh -c 'echo "${{secrets.WALLET_TNSNAMES}}" | base64 -d >> /wallet/tnsnames.ora'
+              sudo sh -c 'echo "${{secrets.WALLET_TRUSTSTORE}}" | base64 -d >> /wallet/truststore.jks'
 
       - name: 'Start App'
         uses: appleboy/ssh-action@master
