@@ -6,7 +6,7 @@ datasources:
     url: jdbc:oracle:thin:@demodb_LOW?TNS_ADMIN=/wallet-demodb
     driverClassName: oracle.jdbc.driver.OracleDriver
     username: cicd
-    password: c0v3(r)Te1i+3
+    password: ${DATASOURCES_DEFAULT_PASSWORD}
     schema-generate: NONE
     dialect: ORACLE
 liquibase:
