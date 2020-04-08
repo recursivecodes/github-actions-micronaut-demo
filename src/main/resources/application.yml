@@ -3,7 +3,7 @@ micronaut:
     name: github-actions-micronaut-demo
 datasources:
   default:
-    url: jdbc:oracle:thin:@demodb_LOW?TNS_ADMIN=/wallet
+    url: ${DATASOURCES_DEFAULT_URL:jdbc:oracle:thin:@demodb_LOW?TNS_ADMIN=/wallet}
     driverClassName: oracle.jdbc.driver.OracleDriver
     username: cicd
     password: ${DATASOURCES_DEFAULT_PASSWORD}
