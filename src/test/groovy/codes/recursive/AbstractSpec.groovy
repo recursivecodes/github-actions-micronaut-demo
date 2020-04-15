@@ -16,7 +16,7 @@ class AbstractSpec extends Specification {
                     .withEnv("ORACLE_PWD", "Str0ngPassw0rd")
                     .withStartupTimeoutSeconds(900)
                     .withConnectTimeoutSeconds(900)
-                    .withPassword("Str0ngPassw0rd");
+                    .withPassword("Str0ngPassw0rd")
     @Shared
     @AutoCleanup
     static ApplicationContext context;
